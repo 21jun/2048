@@ -1,0 +1,12 @@
+# Object files
+*.o
+
+# Libraries
+*.a
+
+# Shared objects
+*.so
+*.so.*
+
+# Executables
+2048
