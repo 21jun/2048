@@ -84,6 +84,20 @@ void drawBoard(uint8_t board[SIZE][SIZE]) {
     printf("\033[A"); // one line up
 }
 
+/*
+ * Function:  findTarget 
+ * --------------------
+ *  블럭이 이동할 수 있는 위치를 찾아 반환하는 함수      
+ *
+ *  Params:
+ *      array : 검사할 블럭의 행
+ *      x : 검사할 블럭의 위치정보
+ *      stop : 중복검사를 방지하기 위한 인덱스
+ *
+ *  returns: 블럭이 이동할 수 있는 위치를 찾으면 해당 위치를 반환 (t+1),
+ *           블럭이 stop 에 의해 더이상 검사를 할 필요가 없는 경우 (t),
+ *           블럭이 이동할 수 있는 위치가 없는 경우 원래 위치 반환(제자리) (x)
+ */
 uint8_t findTarget(uint8_t array[SIZE], uint8_t x, uint8_t stop) {
     uint8_t t;
     // if the position is already on the first, don't evaluate
