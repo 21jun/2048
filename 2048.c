@@ -122,6 +122,20 @@ uint8_t findTarget(uint8_t array[SIZE], uint8_t x, uint8_t stop) {
     return x;
 }
 
+/*
+ * Function:  slideArray 
+ * --------------------
+ *  게임판의 블럭들을 이동하는 함수       
+ *  이동 중 블럭끼리 merge되는 경우도 발생함
+ * 
+ *  Params:
+ *      array : 이동시킬 게임판의 행
+ *
+ *  returns: 
+ *      success : 게임판의 한 행의 블럭들이 이동되었는지 여부
+ *                하나의 블럭이라도 이동했다면 true를 반환한다.
+ */
+
 bool slideArray(uint8_t array[SIZE]) {
     bool success = false;
     uint8_t x, t, stop = 0;
