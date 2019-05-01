@@ -136,27 +136,31 @@ uint8_t findTarget(uint8_t array[SIZE], uint8_t x, uint8_t stop) {
  *                하나의 블럭이라도 이동했다면 true를 반환한다.
  */
 
-bool slideArray(uint8_t array[SIZE]) {
+bool slideArray(uint8_t board[SIZE][SIZE], uint8_t index) {
     bool success = false;
     uint8_t x, t, stop = 0;
 
     for (x = 0; x < SIZE; x++) {
-        if (array[x] != 0) {
-            t = findTarget(array, x, stop);
+        if (board[index][x] != 0) {
+            t = findTarget(board[index], x, stop);
             // if target is not original position, then move or merge
             if (t != x) {
                 // if target is zero, this is a move
-                if (array[t] == 0) {
-                    array[t] = array[x];
-                } else if (array[t] == array[x]) {
+                if (board[index][t] == 0) {
+                    board[index][t] = board[index][x];
+                } 
+                else if (board[index][t] == board[index][x]) {
                     // merge (increase power of two)
-                    array[t]++;
+                    board[index][t]++;
                     // increase score
-                    score += (uint32_t) 1 << array[t];
+                    score += (uint32_t) 1 << board[index][t];
                     // set stop to avoid double merge
                     stop = t + 1;
                 }
-                array[x] = 0;
+                else {
+                    
+                }
+                board[index][x] = 0;
                 success = true;
             }
         }
@@ -182,7 +186,7 @@ bool moveUp(uint8_t board[SIZE][SIZE]) {
     bool success = false;
     uint8_t x;
     for (x = 0; x < SIZE; x++) {
-        success |= slideArray(board[x]);
+        success |= slideArray(board, x);
     }
     return success;
 }
@@ -322,6 +326,7 @@ void setBufferedInput(bool enable) {
 
 int test() {
     uint8_t array[SIZE];
+    uint8_t board[SIZE][SIZE];
     // these are exponents with base 2 (1=2 2=4 3=8)
     uint8_t data[] = {
             0, 0, 0, 1, 1, 0, 0, 0,
@@ -349,10 +354,11 @@ int test() {
         out = in + SIZE;
         for (i = 0; i < SIZE; i++) {
             array[i] = in[i];
+            board[0][i] = in[i];
         }
-        slideArray(array);
+        slideArray(board, 0);
         for (i = 0; i < SIZE; i++) {
-            if (array[i] != out[i]) {
+            if (board[0][i] != out[i]) {
                 success = false;
             }
         }
