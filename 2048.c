@@ -255,6 +255,7 @@ void addRandom(uint8_t board[SIZE][SIZE]) {
     }
 }
 
+// @todo 함수 설명 필요
 void initBoard(uint8_t board[SIZE][SIZE]) {
     uint8_t x, y;
     for (x = 0; x < SIZE; x++) {
@@ -292,6 +293,9 @@ void setBufferedInput(bool enable) {
     }
 }
 
+// @todo 함수 설명 필요
+// @todo 함수 분할 필요
+// @todo 주석 한글화 필요
 int test() {
     uint8_t array[SIZE];
     // these are exponents with base 2 (1=2 2=4 3=8)
@@ -361,11 +365,15 @@ void signal_callback_handler(int signum) {
     exit(signum);
 }
 
+// @todo 함수설명필요
+// @todo 함수분할필요
+// @todo 한글화필요
 int main(int argc, char *argv[]) {
     uint8_t board[SIZE][SIZE];
     char c;
     bool success;
 
+    // @todo 따로 함수로 분할할 예정
     if (argc == 2 && strcmp(argv[1], "test") == 0) {
         return test();
     }
@@ -378,36 +386,36 @@ int main(int argc, char *argv[]) {
 
     printf("\033[?25l\033[2J");
 
-    // register signal handler for when ctrl-c is pressed
+    // 컨트롤 C에 대한 이벤트를 받을 핸들러 등록
     signal(SIGINT, signal_callback_handler);
 
     initBoard(board);
     setBufferedInput(false);
     while (true) {
         c = getchar();
-        if (c == -1) { //TODO: maybe replace this -1 with a pre-defined constant(if it's in one of header files)
+        if (c == -1) { // @todo -1에 대한 설명 명명된 상수로 대체할 예정
             puts("\nError! Cannot read keyboard input!");
             break;
         }
         switch (c) {
-            case 97:    // 'a' key
-            case 104:    // 'h' key
-            case 68:    // left arrow
+            case 97:    // 'a' 키
+            case 104:    // 'h' 키
+            case 68:    // 왼쪽 화살표
                 success = moveLeft(board);
                 break;
-            case 100:    // 'd' key
-            case 108:    // 'l' key
-            case 67:    // right arrow
+            case 100:    // 'd' 키
+            case 108:    // 'l' 키
+            case 67:    // 오른쪽 화살표
                 success = moveRight(board);
                 break;
-            case 119:    // 'w' key
-            case 107:    // 'k' key
-            case 65:    // up arrow
+            case 119:    // 'w' 키
+            case 107:    // 'k' 키
+            case 65:    // 위쪽 화살표
                 success = moveUp(board);
                 break;
-            case 115:    // 's' key
-            case 106:    // 'j' key
-            case 66:    // down arrow
+            case 115:    // 's' 키
+            case 106:    // 'j' 키
+            case 66:    // 아래쪽 화살표
                 success = moveDown(board);
                 break;
             default:
