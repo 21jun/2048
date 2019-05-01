@@ -167,7 +167,7 @@ bool slideArray(uint8_t array[SIZE]) {
 /*
  * Function:  rotateBoard 
  * --------------------
- *  게임판을 반시계 방향으로 90도 회전시키는 함수
+ *  게임판을 반 시계 방향으로 90도 회전시키는 함수
  *  실제 구현은 4x4 배열의 원소들을 옮겨서 회전과 같은 효과를 냈다.
  *
  *  Params:
@@ -188,6 +188,18 @@ void rotateBoard(uint8_t board[SIZE][SIZE]) {
     }
 }
 
+/*
+ * Function:  moveUp 
+ * --------------------
+ * 게임판의 블럭들을 위로 이동하는 함수
+ * 모든 move 함수들은 rotateBoard를 수행해서 방향을 맞추고,
+ * moveUp 함수를 호출해서 move작업을 수행한다.
+ * 
+ *  Process: 4x4 배열을 4x1 씩 나누어 4번의 slideArray 함수를 호출한다.
+ *  Params:
+ *      board : 게임판
+ */
+
 bool moveUp(uint8_t board[SIZE][SIZE]) {
     bool success = false;
     uint8_t x;
@@ -196,6 +208,17 @@ bool moveUp(uint8_t board[SIZE][SIZE]) {
     }
     return success;
 }
+
+/*
+ * Function:  moveLeft 
+ * --------------------
+ *  게임판의 블럭들을 왼쪽으로 이동하는 함수
+ *  반 시계 벙향으로 90도 게임판을 회전시키고,
+ *  moveUp 이후에 반 시계 방향으로 270도 게임판을 회전시킨다.
+ *
+ *  Params:
+ *      board : 게임판
+ */
 
 bool moveLeft(uint8_t board[SIZE][SIZE]) {
     bool success;
@@ -207,6 +230,17 @@ bool moveLeft(uint8_t board[SIZE][SIZE]) {
     return success;
 }
 
+/*
+ * Function:  moveDown 
+ * --------------------
+ *  게임판의 블럭들을 아래쪽으로 이동하는 함수
+ *  반 시계 벙향으로 180도 게임판을 회전시키고,
+ *  moveUp 이후에 반 시계 방향으로 180도 게임판을 회전시킨다.
+ *
+ *  Params:
+ *      board : 게임판
+ */
+
 bool moveDown(uint8_t board[SIZE][SIZE]) {
     bool success;
     rotateBoard(board);
@@ -216,6 +250,17 @@ bool moveDown(uint8_t board[SIZE][SIZE]) {
     rotateBoard(board);
     return success;
 }
+
+/*
+ * Function:  moveRight 
+ * --------------------
+ *  게임판의 블럭들을 오른쪽으로 이동하는 함수
+ *  반 시계 벙향으로 270도 게임판을 회전시키고,
+ *  moveUp 이후에 반 시계 방향으로 90도 게임판을 회전시킨다.
+ *
+ *  Params:
+ *      board : 게임판
+ */
 
 bool moveRight(uint8_t board[SIZE][SIZE]) {
     bool success;
