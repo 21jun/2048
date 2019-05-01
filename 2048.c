@@ -167,7 +167,7 @@ bool slideArray(uint8_t array[SIZE]) {
 /*
  * Function:  rotateBoard 
  * --------------------
- *  게임판을 반 시계 방향으로 90도 회전시키는 함수
+ *  게임판을 반시계 방향으로 90도 회전시키는 함수
  *  실제 구현은 4x4 배열의 원소들을 옮겨서 회전과 같은 효과를 냈다.
  *
  *  Params:
@@ -198,6 +198,8 @@ void rotateBoard(uint8_t board[SIZE][SIZE]) {
  *  Process: 4x4 배열을 4x1 씩 나누어 4번의 slideArray 함수를 호출한다.
  *  Params:
  *      board : 게임판
+ * 
+ * return: 작업의 성공여부
  */
 
 bool moveUp(uint8_t board[SIZE][SIZE]) {
@@ -218,6 +220,8 @@ bool moveUp(uint8_t board[SIZE][SIZE]) {
  *
  *  Params:
  *      board : 게임판
+ * 
+ * return: 작업의 성공여부
  */
 
 bool moveLeft(uint8_t board[SIZE][SIZE]) {
@@ -239,6 +243,8 @@ bool moveLeft(uint8_t board[SIZE][SIZE]) {
  *
  *  Params:
  *      board : 게임판
+ * 
+ * return: 작업의 성공여부
  */
 
 bool moveDown(uint8_t board[SIZE][SIZE]) {
@@ -260,6 +266,8 @@ bool moveDown(uint8_t board[SIZE][SIZE]) {
  *
  *  Params:
  *      board : 게임판
+ * 
+ * return: 작업의 성공여부
  */
 
 bool moveRight(uint8_t board[SIZE][SIZE]) {
