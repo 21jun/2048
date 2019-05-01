@@ -255,7 +255,7 @@ void addRandom(uint8_t board[SIZE][SIZE]) {
     }
 }
 
-// TODO : 함수 설명 필요, 조유신
+// @todo 함수 설명 필요
 void initBoard(uint8_t board[SIZE][SIZE]) {
     uint8_t x, y;
     for (x = 0; x < SIZE; x++) {
@@ -293,8 +293,9 @@ void setBufferedInput(bool enable) {
     }
 }
 
-// TODO : 함수 설명 필요, 조유신
-// TODO : 함수 분할 필요, 조유신
+// @todo 함수 설명 필요
+// @todo 함수 분할 필요
+// @todo 주석 한글화 필요
 int test() {
     uint8_t array[SIZE];
     // these are exponents with base 2 (1=2 2=4 3=8)
@@ -364,8 +365,9 @@ void signal_callback_handler(int signum) {
     exit(signum);
 }
 
-// TODO : 함수 설명 필요, 조유신
-// TODO : 함수 분할 필요, 조유신
+// @todo 함수설명필요
+// @todo 함수분할필요
+// @todo 한글화필요
 int main(int argc, char *argv[]) {
     uint8_t board[SIZE][SIZE];
     char c;
