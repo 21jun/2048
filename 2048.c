@@ -25,9 +25,10 @@ uint8_t scheme = 0;
 /**
  * @brief 실행 인자값에 따른 실행모드 상수입니다
  */
-#define EXCUTE_TEST_MODE            1
-#define EXCUTE_COLOR_BLACKWHITE     2
-#define EXCUTE_COLOR_BLUERED        3
+#define EXCUTE_GAME_MODE            -1
+#define EXCUTE_TEST_MODE            0
+#define EXCUTE_COLOR_BLACKWHITE     1
+#define EXCUTE_COLOR_BLUERED        2
 
 void getColor(uint8_t value, char *color, size_t length) {
     uint8_t original[] = {8, 255, 1, 255, 2, 255, 3, 255, 4, 255, 5, 255, 6, 255, 7, 255, 9, 0, 10, 0, 11, 0, 12, 0, 13,
@@ -381,43 +382,35 @@ void signal_callback_handler(int signum) {
  * @param int $argv             명령행 옵션의 문자열
  * @return EXCUTE_TEST_MODE     TEST모드로 실행되었을 경우만 리턴
  */
-int isExcutingMode(int argc, char *argv[]) {
+int isExcutingMode(int argc, char *argv[])
+{
     if (argc == 2) {
         if ( strcmp(argv[1], "test") == 0 ) {
+            printf("hello");
             return EXCUTE_TEST_MODE;
         }
-        if (argc == 2 && strcmp(argv[1], "blackwhite") == 0) {
+        if ( strcmp(argv[1], "blackwhite") == 0) {
             scheme = EXCUTE_COLOR_BLACKWHITE;
         }
-        if (argc == 2 && strcmp(argv[1], "bluered") == 0) {
+        if ( strcmp(argv[1], "bluered") == 0) {
             scheme = EXCUTE_COLOR_BLUERED;
         }
     }
+
+    return EXCUTE_GAME_MODE;
 }
 
 /**
  * @author 조유신 (cho8wola@sju.ac.kr)
- * @brief 실행 파라미터에 따른 처리를 해주는 함수입니다
- * @param int $argc             실행 파라미터의 개수입니다
- * @param int $argv             실행 파라미터 값들의 배열입니다
- * @return EXCUTE_TEST_MODE     TEST모드로 실행되었을 경우만 리턴합니다
+ * @brief 키 입력 이벤트를 처리하는 함수
+ * @param unit8_t $board 게임의 현재 상황을 나타내는 게임보드
  */
-int main(int argc, char *argv[]) {
-    uint8_t board[SIZE][SIZE];
+void KeyInputProcess(uint8_t board[][SIZE])
+{
     char c;
     bool success;
 
-    if (isExcutingMode(argc, argv) == EXCUTE_TEST_MODE) { return test(); }    
-
-    printf("\033[?25l\033[2J");
-
-    // @brief 컨트롤 C에 대한 이벤트를 받을 핸들러 등록
-    signal(SIGINT, signal_callback_handler);
-
-    initBoard(board);
-    setBufferedInput(false);
-
-    // @todo 함수로 따로 분할알 필요성이 있음
+    
     while (true) {
         c = getchar();
         if (c == -1) { // @todo -1에 대한 설명 명명된 상수로 대체할 예정
@@ -475,6 +468,32 @@ int main(int argc, char *argv[]) {
             drawBoard(board);
         }
     }
+
+}
+
+/**
+ * @author 조유신 (cho8wola@sju.ac.kr)
+ * @brief main함수
+ * @param int $argc             실행 파라미터의 개수
+ * @param int $argv             실행 파라미터 값들의 배열
+ * @return EXIT_SUCCESS         정상적으로 종료되었을 경우 리턴
+ */
+int main(int argc, char *argv[]) {
+    uint8_t board[SIZE][SIZE];
+
+    if (isExcutingMode(argc, argv) == EXCUTE_TEST_MODE) { return test(); }
+
+    printf("\033[?25l\033[2J");
+
+    // @brief 컨트롤 C에 대한 이벤트를 받을 핸들러 등록
+    signal(SIGINT, signal_callback_handler);
+
+    initBoard(board);
+    setBufferedInput(false);
+
+    // @brief 게임의 실제 진행이 이루어지는 부분
+    KeyInputProcess(board);
+    
     setBufferedInput(true);
 
     printf("\033[?25h\033[m");
