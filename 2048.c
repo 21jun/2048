@@ -65,15 +65,37 @@ void getColor(uint8_t value, char *color, size_t length) {
     snprintf(color, length, "\033[38;5;%d;48;5;%dm", *foreground, *background);
 }
 
+
+
+/**
+ * @author 박소연 (pparksso0308@gmail.com)
+ * @brief          화면에 블록의 값을 출력한다..
+ * @param uint8_t board         화면에 출력할 게임판 정보
+ * @param unit8_t x_index       게임판의 x_index 값
+ * @param unit8_t y_index       게임판의 y_index 값
+ */
+void printValue(uint8_t board[SIZE][SIZE], uint8_t x_index, uint8_t y_index )
+{
+    if (board[x][y] != 0) {
+        char s[8];
+        snprintf(s, 8, "%u", (uint32_t) 1 << board[x][y]);
+
+        uint8_t t = 7 - strlen(s);
+        printf("%*s%s%*s", t - t / 2, "", s, t / 2, "");
+    } else {
+        printf("   ·   ");
+    }
+}
+
 /**
  * @author 박소연 (pparksso0308@gmail.com)
  * @brief 화면에 게임판을 출력한다.
  * @param uint8_t board         화면에 출력할 게임판 정보
  */
-
 void drawBoard(uint8_t board[SIZE][SIZE]) {
     uint8_t x, y;
     char color[40], reset[] = "\033[m";
+
     printf("\033[H");
 
     printf("2048.c %17d pts\n\n", score);
@@ -81,22 +103,19 @@ void drawBoard(uint8_t board[SIZE][SIZE]) {
     for (y = 0; y < SIZE; y++) {
         for (x = 0; x < SIZE; x++) {
             getColor(board[x][y], color, 40);
+
             printf("%s", color);
             printf("       ");
             printf("%s", reset);
         }
         printf("\n");
+
         for (x = 0; x < SIZE; x++) {
             getColor(board[x][y], color, 40);
             printf("%s", color);
-            if (board[x][y] != 0) {
-                char s[8];
-                snprintf(s, 8, "%u", (uint32_t) 1 << board[x][y]);
-                uint8_t t = 7 - strlen(s);
-                printf("%*s%s%*s", t - t / 2, "", s, t / 2, "");
-            } else {
-                printf("   ·   ");
-            }
+            
+            printValue(board, int x, int y);
+      
             printf("%s", reset);
         }
         printf("\n");
@@ -361,7 +380,7 @@ void addRandom(uint8_t board[SIZE][SIZE]) {
 
     if (!initialized) {
         srand(time(NULL));
-        initialized = true;
+        initialized = true; 
     }
 
     for (x = 0; x < SIZE; x++) {
