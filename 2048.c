@@ -50,6 +50,12 @@ void getColor(uint8_t value, char *color, size_t length) {
     snprintf(color, length, "\033[38;5;%d;48;5;%dm", *foreground, *background);
 }
 
+/**
+ * @author 박소연 (pparksso0308@gmail.com)
+ * @brief 화면에 게임판을 출력한다.
+ * @param uint8_t board         화면에 출력할 게임판 정보
+ */
+
 void drawBoard(uint8_t board[SIZE][SIZE]) {
     uint8_t x, y;
     char color[40], reset[] = "\033[m";
