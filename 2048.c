@@ -30,6 +30,15 @@ uint8_t scheme = 0;
 #define EXCUTE_COLOR_BLACKWHITE     1
 #define EXCUTE_COLOR_BLUERED        2
 
+
+
+/**
+ * @author 박소연 (pparksso0308@gmail.com)
+ * @brief 화면에 출력될 블록들의 색깔 스키마를 설정한다.
+ * @param uint8_t value             블록들에 저장되어 있는 값
+ * @param char * color               블록들의 색깔을 저장할 변수
+ * @param size_t length              color 변수의 크기 설정
+*/
 void getColor(uint8_t value, char *color, size_t length) {
     uint8_t original[] = {8, 255, 1, 255, 2, 255, 3, 255, 4, 255, 5, 255, 6, 255, 7, 255, 9, 0, 10, 0, 11, 0, 12, 0, 13,
                           0, 14, 0, 255, 0, 255, 0};
