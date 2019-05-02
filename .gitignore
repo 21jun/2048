@@ -10,3 +10,6 @@
 
 # Executables
 2048
+
+# MacOS compiler
+/2048.dSYM/
