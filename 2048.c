@@ -374,9 +374,12 @@ bool gameEnded(uint8_t board[SIZE][SIZE]) {
  */
 void addRandom(uint8_t board[SIZE][SIZE]) {
     static bool initialized = false;
-    uint8_t x, y;
-    uint8_t r, len = 0;
-    uint8_t n, list[SIZE * SIZE][2];
+    uint8_t x;
+    uint8_t y;
+    uint8_t r;
+    uint8_t len = 0;
+    uint8_t n;
+    uint8_t list[SIZE * SIZE][2];
 
     if (!initialized) {
         srand(time(NULL));
@@ -385,7 +388,7 @@ void addRandom(uint8_t board[SIZE][SIZE]) {
 
     for (x = 0; x < SIZE; x++) {
         for (y = 0; y < SIZE; y++) {
-            if (board[x][y] == 0) {
+            if (board[x][y] == 0) { 
                 list[len][0] = x;
                 list[len][1] = y;
                 len++;
