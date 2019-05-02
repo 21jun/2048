@@ -344,7 +344,7 @@ bool gameEnded(uint8_t board[SIZE][SIZE]) {
 }
 /**
  * @author 박소연 (pparksso0308@gmail.com)
- * @brief                       게임 시작시 처음 제공될 블록을 랜덤하게 설정
+ * @brief                       게임 시작시 모든 블록의 값을 각각 랜덤하게 설정
  * @param uint8_t board         화면에 출력할 게임판 정보
  */
 void addRandom(uint8_t board[SIZE][SIZE]) {
