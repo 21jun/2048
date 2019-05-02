@@ -93,17 +93,17 @@ void printValue(uint8_t board[SIZE][SIZE], uint8_t x_index, uint8_t y_index )
  * @param uint8_t board         화면에 출력할 게임판 정보
  */
 void drawBoard(uint8_t board[SIZE][SIZE]) {
-    uint8_t x, y;
-    char color[40], reset[] = "\033[m";
+    uint8_t x; 
+    uint8_t y;
+    char color[40];
+    char reset[] = "\033[m";
 
     printf("\033[H");
-
     printf("2048.c %17d pts\n\n", score);
 
     for (y = 0; y < SIZE; y++) {
         for (x = 0; x < SIZE; x++) {
             getColor(board[x][y], color, 40);
-
             printf("%s", color);
             printf("       ");
             printf("%s", reset);
@@ -113,9 +113,7 @@ void drawBoard(uint8_t board[SIZE][SIZE]) {
         for (x = 0; x < SIZE; x++) {
             getColor(board[x][y], color, 40);
             printf("%s", color);
-            
             printValue(board, int x, int y);
-      
             printf("%s", reset);
         }
         printf("\n");
