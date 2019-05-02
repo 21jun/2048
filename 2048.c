@@ -342,7 +342,11 @@ bool gameEnded(uint8_t board[SIZE][SIZE]) {
     rotateBoard(board);
     return ended;
 }
-
+/**
+ * @author 박소연 (pparksso0308@gmail.com)
+ * @brief                       게임 시작시 처음 제공될 블록을 랜덤하게 설정
+ * @param uint8_t board         화면에 출력할 게임판 정보
+ */
 void addRandom(uint8_t board[SIZE][SIZE]) {
     static bool initialized = false;
     uint8_t x, y;
