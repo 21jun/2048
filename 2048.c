@@ -22,6 +22,14 @@
 uint32_t score = 0;
 uint8_t scheme = 0;
 
+/**
+ * @brief 실행 인자값에 따른 실행모드 상수입니다
+ */
+#define EXCUTE_GAME_MODE            -1
+#define EXCUTE_TEST_MODE            0
+#define EXCUTE_COLOR_BLACKWHITE     1
+#define EXCUTE_COLOR_BLUERED        2
+
 void getColor(uint8_t value, char *color, size_t length) {
     uint8_t original[] = {8, 255, 1, 255, 2, 255, 3, 255, 4, 255, 5, 255, 6, 255, 7, 255, 9, 0, 10, 0, 11, 0, 12, 0, 13,
                           0, 14, 0, 255, 0, 255, 0};
@@ -287,6 +295,7 @@ void addRandom(uint8_t board[SIZE][SIZE]) {
     }
 }
 
+// @todo 함수 설명 필요
 void initBoard(uint8_t board[SIZE][SIZE]) {
     uint8_t x, y;
     for (x = 0; x < SIZE; x++) {
@@ -324,6 +333,9 @@ void setBufferedInput(bool enable) {
     }
 }
 
+// @todo 함수 설명 필요
+// @todo 함수 분할 필요
+// @todo 주석 한글화 필요
 int test() {
     uint8_t array[SIZE];
     uint8_t board[SIZE][SIZE];
@@ -395,53 +407,69 @@ void signal_callback_handler(int signum) {
     exit(signum);
 }
 
-int main(int argc, char *argv[]) {
-    uint8_t board[SIZE][SIZE];
+
+
+/**
+ * @author 조유신 (cho8wola@sju.ac.kr)
+ * @brief 실행 파라미터에 따른 처리를 해주는 함수
+ * @param int $argc             명령햅 옵션의 개수
+ * @param int $argv             명령행 옵션의 문자열
+ * @return EXCUTE_TEST_MODE     TEST모드로 실행되었을 경우만 리턴
+ */
+int isExcutingMode(int argc, char *argv[])
+{
+    if (argc == 2) {
+        if ( strcmp(argv[1], "test") == 0 ) {
+            printf("hello");
+            return EXCUTE_TEST_MODE;
+        }
+        if ( strcmp(argv[1], "blackwhite") == 0) {
+            scheme = EXCUTE_COLOR_BLACKWHITE;
+        }
+        if ( strcmp(argv[1], "bluered") == 0) {
+            scheme = EXCUTE_COLOR_BLUERED;
+        }
+    }
+
+    return EXCUTE_GAME_MODE;
+}
+
+/**
+ * @author 조유신 (cho8wola@sju.ac.kr)
+ * @brief 키 입력 이벤트를 처리하는 함수
+ * @param unit8_t $board 게임의 현재 상황을 나타내는 게임보드
+ */
+void KeyInputProcess(uint8_t board[][SIZE])
+{
     char c;
     bool success;
 
-    if (argc == 2 && strcmp(argv[1], "test") == 0) {
-        return test();
-    }
-    if (argc == 2 && strcmp(argv[1], "blackwhite") == 0) {
-        scheme = 1;
-    }
-    if (argc == 2 && strcmp(argv[1], "bluered") == 0) {
-        scheme = 2;
-    }
-
-    printf("\033[?25l\033[2J");
-
-    // register signal handler for when ctrl-c is pressed
-    signal(SIGINT, signal_callback_handler);
-
-    initBoard(board);
-    setBufferedInput(false);
+    
     while (true) {
         c = getchar();
-        if (c == -1) { //TODO: maybe replace this -1 with a pre-defined constant(if it's in one of header files)
+        if (c == -1) { // @todo -1에 대한 설명 명명된 상수로 대체할 예정
             puts("\nError! Cannot read keyboard input!");
             break;
         }
         switch (c) {
-            case 97:    // 'a' key
-            case 104:    // 'h' key
-            case 68:    // left arrow
+            case 97:    // 'a' 키
+            case 104:    // 'h' 키
+            case 68:    // 왼쪽 화살표
                 success = moveLeft(board);
                 break;
-            case 100:    // 'd' key
-            case 108:    // 'l' key
-            case 67:    // right arrow
+            case 100:    // 'd' 키
+            case 108:    // 'l' 키
+            case 67:    // 오른쪽 화살표
                 success = moveRight(board);
                 break;
-            case 119:    // 'w' key
-            case 107:    // 'k' key
-            case 65:    // up arrow
+            case 119:    // 'w' 키
+            case 107:    // 'k' 키
+            case 65:    // 위쪽 화살표
                 success = moveUp(board);
                 break;
-            case 115:    // 's' key
-            case 106:    // 'j' key
-            case 66:    // down arrow
+            case 115:    // 's' 키
+            case 106:    // 'j' 키
+            case 66:    // 아래쪽 화살표
                 success = moveDown(board);
                 break;
             default:
@@ -474,6 +502,32 @@ int main(int argc, char *argv[]) {
             drawBoard(board);
         }
     }
+
+}
+
+/**
+ * @author 조유신 (cho8wola@sju.ac.kr)
+ * @brief main함수
+ * @param int $argc             실행 파라미터의 개수
+ * @param int $argv             실행 파라미터 값들의 배열
+ * @return EXIT_SUCCESS         정상적으로 종료되었을 경우 리턴
+ */
+int main(int argc, char *argv[]) {
+    uint8_t board[SIZE][SIZE];
+
+    if (isExcutingMode(argc, argv) == EXCUTE_TEST_MODE) { return test(); }
+
+    printf("\033[?25l\033[2J");
+
+    // @brief 컨트롤 C에 대한 이벤트를 받을 핸들러 등록
+    signal(SIGINT, signal_callback_handler);
+
+    initBoard(board);
+    setBufferedInput(false);
+
+    // @brief 게임의 실제 진행이 이루어지는 부분
+    KeyInputProcess(board);
+    
     setBufferedInput(true);
 
     printf("\033[?25h\033[m");
