@@ -25,10 +25,10 @@ uint8_t scheme = 0;
 /**
  * @brief 실행 인자값에 따른 실행모드 상수입니다
  */
-#define EXCUTE_GAME_MODE            -1
-#define EXCUTE_TEST_MODE            0
-#define EXCUTE_COLOR_BLACKWHITE     1
-#define EXCUTE_COLOR_BLUERED        2
+#define EXECUTE_GAME_MODE            -1
+#define EXECUTE_TEST_MODE            0
+#define EXECUTE_COLOR_BLACKWHITE     1
+#define EXECUTE_COLOR_BLUERED        2
 
 
 
@@ -498,22 +498,22 @@ void signal_callback_handler(int signum) {
  * @param int $argv             명령행 옵션의 문자열
  * @return EXCUTE_TEST_MODE     TEST모드로 실행되었을 경우만 리턴
  */
-int isExcutingMode(int argc, char *argv[])
+int getExecuteMode(int argc, char *argv[])
 {
     if (argc == 2) {
         if ( strcmp(argv[1], "test") == 0 ) {
             printf("hello");
-            return EXCUTE_TEST_MODE;
+            return EXECUTE_TEST_MODE;
         }
         if ( strcmp(argv[1], "blackwhite") == 0) {
-            scheme = EXCUTE_COLOR_BLACKWHITE;
+            scheme = EXECUTE_COLOR_BLACKWHITE;
         }
         if ( strcmp(argv[1], "bluered") == 0) {
-            scheme = EXCUTE_COLOR_BLUERED;
+            scheme = EXECUTE_COLOR_BLUERED;
         }
     }
 
-    return EXCUTE_GAME_MODE;
+    return EXECUTE_GAME_MODE;
 }
 
 /**
@@ -584,7 +584,6 @@ void KeyInputProcess(uint8_t board[][SIZE])
             drawBoard(board);
         }
     }
-
 }
 
 /**
@@ -597,7 +596,7 @@ void KeyInputProcess(uint8_t board[][SIZE])
 int main(int argc, char *argv[]) {
     uint8_t board[SIZE][SIZE];
 
-    if (isExcutingMode(argc, argv) == EXCUTE_TEST_MODE) { return test(); }
+    if (getExecuteMode(argc, argv) == EXECUTE_TEST_MODE) { return test(); }
 
     printf("\033[?25l\033[2J");
 
