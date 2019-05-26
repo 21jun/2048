@@ -129,19 +129,15 @@ void drawBoard(uint8_t board[SIZE][SIZE]) {
     printf("\033[A"); // one line up
 }
 
-/*
- * Function:  findTarget 
- * --------------------
- *  블럭이 이동할 수 있는 위치를 찾아 반환하는 함수      
- *
- *  Params:
- *      array : 검사할 블럭의 행
- *      x : 검사할 블럭의 위치정보
- *      stop : 중복검사를 방지하기 위한 인덱스
- *
- *  returns: 블럭이 이동할 수 있는 위치를 찾으면 해당 위치를 반환 (t+1),
- *           블럭이 stop 에 의해 더이상 검사를 할 필요가 없는 경우 (t),
- *           블럭이 이동할 수 있는 위치가 없는 경우 원래 위치 반환(제자리) (x)
+/**
+ * @author                          이원준 (21jun7654@gmail.com)
+ * @brief                           블럭이 이동할 수 있는 위치를 찾아 반환하는 함수
+ * @param unsigned int array[SIZE]  검사할 블럭이 속한 행
+ * @param unsigned int x            검사할 블럭의 위치 정보
+ * @param unsigned int stop         중복검사를 방지하기 위한 인덱스
+ * @return unsigned int             블럭이 이동할 수 있는 위치를 찾으면 해당 위치를 반환 (t+1),
+ *                                  블럭이 stop 에 의해 더이상 검사를 할 필요가 없는 경우 (t),
+ *                                  블럭이 이동할 수 있는 위치가 없는 경우 원래 위치 반환(제자리) (x)
  */
 uint8_t findTarget(uint8_t array[SIZE], uint8_t x, uint8_t stop) {
     uint8_t t;
@@ -167,20 +163,15 @@ uint8_t findTarget(uint8_t array[SIZE], uint8_t x, uint8_t stop) {
     return x;
 }
 
-/*
- * Function:  slideArray 
- * --------------------
- *  게임판의 블럭들을 이동하는 함수       
- *  이동 중 블럭끼리 merge되는 경우도 발생함
- * 
- *  Params:
- *      array : 이동시킬 게임판의 행
- *
- *  returns: 
- *      success : 게임판의 한 행의 블럭들이 이동되었는지 여부
- *                하나의 블럭이라도 이동했다면 true를 반환한다.
+/**
+ * @author                          이원준 (21jun7654@gmail.com)
+ * @brief                           게임판의 블럭들을 이동하는 함수       
+ *                                  이동 중 블럭끼리 merge되는 경우도 발생함
+ * @param unsigned int board        게임판
+ * @param unsigned int index        검사할 행의 인덱스
+ * @return bool success             게임판의 한 행의 블럭들이 이동되었는지 여부
+ *                                  하나의 블럭이라도 이동했다면 true 반환한다.             
  */
-
 bool slideArray(uint8_t board[SIZE][SIZE], uint8_t index) {
     bool success = false;
     uint8_t x, t, stop = 0;
@@ -213,16 +204,12 @@ bool slideArray(uint8_t board[SIZE][SIZE], uint8_t index) {
     return success;
 }
 
-/*
- * Function:  rotateBoard 
- * --------------------
- *  게임판을 반시계 방향으로 90도 회전시키는 함수
- *  실제 구현은 4x4 배열의 원소들을 옮겨서 회전과 같은 효과를 냈다.
- *
- *  Params:
- *      board : 게임판
+/**
+ * @author                          이원준 (21jun7654@gmail.com)
+ * @brief                           게임판을 반시계 방향으로 90도 회전시키는 함수
+ *                                  실제 구현은 4x4 배열의 원소들을 옮겨서 회전과 같은 효과를 냈다.
+ * @param unsigned int board        게임판        
  */
-
 void rotateBoard(uint8_t board[SIZE][SIZE]) {
     uint8_t i, j, n = SIZE;
     uint8_t tmp;
@@ -236,21 +223,15 @@ void rotateBoard(uint8_t board[SIZE][SIZE]) {
         }
     }
 }
-
-/*
- * Function:  moveUp 
- * --------------------
- * 게임판의 블럭들을 위로 이동하는 함수
- * 모든 move 함수들은 rotateBoard를 수행해서 방향을 맞추고,
- * moveUp 함수를 호출해서 move작업을 수행한다.
- * 
- *  Process: 4x4 배열을 4x1 씩 나누어 4번의 slideArray 함수를 호출한다.
- *  Params:
- *      board : 게임판
- * 
- * return: 작업의 성공여부
+/**
+ * @author                          이원준 (21jun7654@gmail.com)
+ * @brief                           게임판의 블럭들을 위로 이동하는 함수
+ *                                  모든 move 함수들은 rotateBoard를 수행해서 방향을 맞추고,
+ *                                  moveUp 함수를 호출해서 move작업을 수행한다.
+ * @remark                          4x4 배열을 4x1 씩 나누어 4번의 slideArray 함수를 호출한다.
+ * @param unsigned int board        게임판       
+ * @return bool success             작업의 성공 여부
  */
-
 bool moveUp(uint8_t board[SIZE][SIZE]) {
     bool success = false;
     uint8_t x;
@@ -260,19 +241,14 @@ bool moveUp(uint8_t board[SIZE][SIZE]) {
     return success;
 }
 
-/*
- * Function:  moveLeft 
- * --------------------
- *  게임판의 블럭들을 왼쪽으로 이동하는 함수
- *  반 시계 벙향으로 90도 게임판을 회전시키고,
- *  moveUp 이후에 반 시계 방향으로 270도 게임판을 회전시킨다.
- *
- *  Params:
- *      board : 게임판
- * 
- * return: 작업의 성공여부
+/**
+ * @author                          이원준 (21jun7654@gmail.com)
+ * @brief                           게임판의 블럭들을 왼쪽으로 이동하는 함수
+ *                                  반 시계 벙향으로 90도 게임판을 회전시키고,
+ *                                  moveUp 이후에 반 시계 방향으로 270도 게임판을 회전시킨다.
+ * @param unsigned int board        게임판       
+ * @return bool success             작업의 성공 여부
  */
-
 bool moveLeft(uint8_t board[SIZE][SIZE]) {
     bool success;
     rotateBoard(board);
@@ -283,19 +259,14 @@ bool moveLeft(uint8_t board[SIZE][SIZE]) {
     return success;
 }
 
-/*
- * Function:  moveDown 
- * --------------------
- *  게임판의 블럭들을 아래쪽으로 이동하는 함수
- *  반 시계 벙향으로 180도 게임판을 회전시키고,
- *  moveUp 이후에 반 시계 방향으로 180도 게임판을 회전시킨다.
- *
- *  Params:
- *      board : 게임판
- * 
- * return: 작업의 성공여부
+/**
+ * @author                          이원준 (21jun7654@gmail.com)
+ * @brief                           게임판의 블럭들을 왼쪽으로 이동하는 함수
+ *                                  반 시계 벙향으로 180도 게임판을 회전시키고,
+ *                                  moveUp 이후에 반 시계 방향으로 180도 게임판을 회전시킨다.
+ * @param unsigned int board        게임판       
+ * @return bool success             작업의 성공 여부
  */
-
 bool moveDown(uint8_t board[SIZE][SIZE]) {
     bool success;
     rotateBoard(board);
@@ -306,19 +277,14 @@ bool moveDown(uint8_t board[SIZE][SIZE]) {
     return success;
 }
 
-/*
- * Function:  moveRight 
- * --------------------
- *  게임판의 블럭들을 오른쪽으로 이동하는 함수
- *  반 시계 벙향으로 270도 게임판을 회전시키고,
- *  moveUp 이후에 반 시계 방향으로 90도 게임판을 회전시킨다.
- *
- *  Params:
- *      board : 게임판
- * 
- * return: 작업의 성공여부
+/**
+ * @author                          이원준 (21jun7654@gmail.com)
+ * @brief                           게임판의 블럭들을 왼쪽으로 이동하는 함수
+ *                                  반 시계 벙향으로 270도 게임판을 회전시키고,
+ *                                  moveUp 이후에 반 시계 방향으로 90도 게임판을 회전시킨다.
+ * @param unsigned int board        게임판       
+ * @return bool success             작업의 성공 여부
  */
-
 bool moveRight(uint8_t board[SIZE][SIZE]) {
     bool success;
     rotateBoard(board);
