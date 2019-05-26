@@ -33,11 +33,11 @@ uint8_t scheme = 0;
 
 
 /**
- * @author 박소연 (pparksso0308@gmail.com)
- * @brief 화면에 출력될 블록들의 색깔 스키마를 설정한다.
+ * @author                          박소연 (pparksso0308@gmail.com)
+ * @brief                           화면에 출력될 블록들의 색깔 스키마를 설정한다.
  * @param uint8_t value             블록들에 저장되어 있는 값
- * @param char * color               블록들의 색깔을 저장할 변수
- * @param size_t length              color 변수의 크기 설정
+ * @param char * color              블록들의 색깔을 저장할 변수
+ * @param size_t length             color 변수의 크기 설정
 */
 void getColor(uint8_t value, char *color, size_t length) {
 
@@ -67,8 +67,8 @@ void getColor(uint8_t value, char *color, size_t length) {
 
 
 /**
- * @author 박소연 (pparksso0308@gmail.com)
- * @brief          화면에 블록의 값을 출력한다..
+ * @author                      박소연 (pparksso0308@gmail.com)
+ * @brief                       화면에 블록의 값을 출력한다.
  * @param uint8_t board         화면에 출력할 게임판 정보
  * @param unit8_t x_index       게임판의 x_index 값
  * @param unit8_t y_index       게임판의 y_index 값
@@ -87,8 +87,8 @@ void printValue(uint8_t board[SIZE][SIZE], uint8_t x_index, uint8_t y_index )
 }
 
 /**
- * @author 박소연 (pparksso0308@gmail.com)
- * @brief 화면에 게임판을 출력한다.
+ * @author                      박소연 (pparksso0308@gmail.com)
+ * @brief                       화면에 게임판을 출력한다.
  * @param uint8_t board         화면에 출력할 게임판 정보
  */
 void drawBoard(uint8_t board[SIZE][SIZE]) {
@@ -331,7 +331,7 @@ bool gameEnded(uint8_t board[SIZE][SIZE]) {
     return ended;
 }
 /**
- * @author 박소연 (pparksso0308@gmail.com)
+ * @author                      박소연 (pparksso0308@gmail.com)
  * @brief                       게임 시작시 모든 블록의 값을 각각 랜덤하게 설정
  * @param uint8_t board         화면에 출력할 게임판 정보
  */
@@ -483,8 +483,8 @@ void signal_callback_handler(int signum) {
 
 
 /**
- * @author 조유신 (cho8wola@sju.ac.kr)
- * @brief 실행 파라미터에 따른 처리를 해주는 함수
+ * @author                      조유신 (cho8wola@sju.ac.kr)
+ * @brief                       실행 파라미터에 따른 처리를 해주는 함수
  * @param int $argc             명령햅 옵션의 개수
  * @param int $argv             명령행 옵션의 문자열
  * @return EXCUTE_TEST_MODE     TEST모드로 실행되었을 경우만 리턴
@@ -508,9 +508,9 @@ int getExecuteMode(int argc, char *argv[])
 }
 
 /**
- * @author 조유신 (cho8wola@sju.ac.kr)
- * @brief 키 입력 이벤트를 처리하는 함수
- * @param unit8_t $board 게임의 현재 상황을 나타내는 게임보드
+ * @author                      조유신 (cho8wola@sju.ac.kr)
+ * @brief                       키 입력 이벤트를 처리하는 함수
+ * @param unit8_t board         게임의 현재 상황을 나타내는 게임보드
  */
 void KeyInputProcess(uint8_t board[][SIZE])
 {
@@ -578,10 +578,10 @@ void KeyInputProcess(uint8_t board[][SIZE])
 }
 
 /**
- * @author 조유신 (cho8wola@sju.ac.kr)
- * @brief main함수
- * @param int $argc             실행 파라미터의 개수
- * @param int $argv             실행 파라미터 값들의 배열
+ * @author                      조유신 (cho8wola@sju.ac.kr)
+ * @brief                       main함수
+ * @param int argc              실행 파라미터의 개수
+ * @param int argv              실행 파라미터 값들의 배열
  * @return EXIT_SUCCESS         정상적으로 종료되었을 경우 리턴
  */
 int main(int argc, char *argv[]) {
