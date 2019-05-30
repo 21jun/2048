@@ -189,13 +189,15 @@ bool slideArray(unsigned int board[SIZE][SIZE], unsigned int index)
                 if (board[index][t] == 0) {
                     board[index][t] = board[index][x];
                 } 
-                else if (board[index][t] == board[index][x]) {
-                    // merge (increase power of two)
-                    board[index][t]++;
-                    // increase score
-                    score += (unsigned int) 1 << board[index][t];
-                    // set stop to avoid double merge
-                    stop = t + 1;
+                else {
+                    if (board[index][t] == board[index][x]) {
+                        // merge (increase power of two)
+                        board[index][t]++;
+                        // increase score
+                        score += (unsigned int) 1 << board[index][t];
+                        // set stop to avoid double merge
+                        stop = t + 1;
+                    }
                 }
                 board[index][x] = 0;
                 success = true;
@@ -412,17 +414,20 @@ void setBufferedInput(bool enable)
         tcsetattr(STDIN_FILENO, TCSANOW, &old);
         // set the new state
         enabled = true;
-    } else if (!enable && enabled) {
-        // get the terminal settings for standard input
-        tcgetattr(STDIN_FILENO, &new);
-        // we want to keep the old setting to restore them at the end
-        old = new;
-        // disable canonical mode (buffered i/o) and local echo
-        new.c_lflag &= (~ICANON & ~ECHO);
-        // set the new settings immediately
-        tcsetattr(STDIN_FILENO, TCSANOW, &new);
-        // set the new state
-        enabled = false;
+    } 
+    else {
+        if (!enable && enabled) {
+            // get the terminal settings for standard input
+            tcgetattr(STDIN_FILENO, &new);
+            // we want to keep the old setting to restore them at the end
+            old = new;
+            // disable canonical mode (buffered i/o) and local echo
+            new.c_lflag &= (~ICANON & ~ECHO);
+            // set the new settings immediately
+            tcsetattr(STDIN_FILENO, TCSANOW, &new);
+            // set the new state
+            enabled = false;
+        }
     }
 }
 
