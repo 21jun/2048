@@ -39,8 +39,8 @@ uint8_t scheme = 0;
  * @param char * color               블록들의 색깔을 저장할 변수
  * @param size_t length              color 변수의 크기 설정
 */
-void getColor(uint8_t value, char *color, size_t length) {
-
+void getColor(uint8_t value, char *color, size_t length)
+{
     uint8_t original[] = {8, 255, 1, 255, 2, 255, 3, 255, 4, 255, 5, 255, 6, 255, 7,
                           255, 9, 0, 10, 0, 11, 0, 12, 0, 13, 0, 14, 0, 255, 0, 255, 0};
     uint8_t blackwhite[] = {232, 255, 234, 255, 236, 255, 238, 255, 240, 255, 242, 255, 244, 255,
@@ -91,7 +91,8 @@ void printValue(uint8_t board[SIZE][SIZE], uint8_t x_index, uint8_t y_index )
  * @brief 화면에 게임판을 출력한다.
  * @param uint8_t board         화면에 출력할 게임판 정보
  */
-void drawBoard(uint8_t board[SIZE][SIZE]) {
+void drawBoard(uint8_t board[SIZE][SIZE])
+{
     uint8_t x; 
     uint8_t y;
     char color[40];
@@ -181,7 +182,8 @@ uint8_t findTarget(uint8_t array[SIZE], uint8_t x, uint8_t stop) {
  *                하나의 블럭이라도 이동했다면 true를 반환한다.
  */
 
-bool slideArray(uint8_t board[SIZE][SIZE], uint8_t index) {
+bool slideArray(uint8_t board[SIZE][SIZE], uint8_t index)
+{
     bool success = false;
     uint8_t x, t, stop = 0;
 
@@ -223,7 +225,8 @@ bool slideArray(uint8_t board[SIZE][SIZE], uint8_t index) {
  *      board : 게임판
  */
 
-void rotateBoard(uint8_t board[SIZE][SIZE]) {
+void rotateBoard(uint8_t board[SIZE][SIZE])
+{
     uint8_t i, j, n = SIZE;
     uint8_t tmp;
     for (i = 0; i < n / 2; i++) {
@@ -251,7 +254,8 @@ void rotateBoard(uint8_t board[SIZE][SIZE]) {
  * return: 작업의 성공여부
  */
 
-bool moveUp(uint8_t board[SIZE][SIZE]) {
+bool moveUp(uint8_t board[SIZE][SIZE])
+{
     bool success = false;
     uint8_t x;
     for (x = 0; x < SIZE; x++) {
@@ -273,7 +277,8 @@ bool moveUp(uint8_t board[SIZE][SIZE]) {
  * return: 작업의 성공여부
  */
 
-bool moveLeft(uint8_t board[SIZE][SIZE]) {
+bool moveLeft(uint8_t board[SIZE][SIZE])
+{
     bool success;
     rotateBoard(board);
     success = moveUp(board);
@@ -296,7 +301,8 @@ bool moveLeft(uint8_t board[SIZE][SIZE]) {
  * return: 작업의 성공여부
  */
 
-bool moveDown(uint8_t board[SIZE][SIZE]) {
+bool moveDown(uint8_t board[SIZE][SIZE])
+{
     bool success;
     rotateBoard(board);
     rotateBoard(board);
@@ -319,7 +325,8 @@ bool moveDown(uint8_t board[SIZE][SIZE]) {
  * return: 작업의 성공여부
  */
 
-bool moveRight(uint8_t board[SIZE][SIZE]) {
+bool moveRight(uint8_t board[SIZE][SIZE])
+{
     bool success;
     rotateBoard(board);
     rotateBoard(board);
@@ -329,7 +336,8 @@ bool moveRight(uint8_t board[SIZE][SIZE]) {
     return success;
 }
 
-bool findPairDown(uint8_t board[SIZE][SIZE]) {
+bool findPairDown(uint8_t board[SIZE][SIZE])
+{
     bool success = false;
     uint8_t x, y;
     for (x = 0; x < SIZE; x++) {
@@ -340,7 +348,8 @@ bool findPairDown(uint8_t board[SIZE][SIZE]) {
     return success;
 }
 
-uint8_t countEmpty(uint8_t board[SIZE][SIZE]) {
+uint8_t countEmpty(uint8_t board[SIZE][SIZE])
+{
     uint8_t x, y;
     uint8_t count = 0;
     for (x = 0; x < SIZE; x++) {
@@ -353,7 +362,8 @@ uint8_t countEmpty(uint8_t board[SIZE][SIZE]) {
     return count;
 }
 
-bool gameEnded(uint8_t board[SIZE][SIZE]) {
+bool gameEnded(uint8_t board[SIZE][SIZE])
+{
     bool ended = true;
     if (countEmpty(board) > 0) return false;
     if (findPairDown(board)) return false;
@@ -369,7 +379,8 @@ bool gameEnded(uint8_t board[SIZE][SIZE]) {
  * @brief                       게임 시작시 모든 블록의 값을 각각 랜덤하게 설정
  * @param uint8_t board         화면에 출력할 게임판 정보
  */
-void addRandom(uint8_t board[SIZE][SIZE]) {
+void addRandom(uint8_t board[SIZE][SIZE])
+{
     static bool initialized = false;
     uint8_t x;
     uint8_t y;
@@ -403,7 +414,8 @@ void addRandom(uint8_t board[SIZE][SIZE]) {
 }
 
 // @todo 함수 설명 필요
-void initBoard(uint8_t board[SIZE][SIZE]) {
+void initBoard(uint8_t board[SIZE][SIZE])
+{
     uint8_t x, y;
     for (x = 0; x < SIZE; x++) {
         for (y = 0; y < SIZE; y++) {
@@ -416,7 +428,8 @@ void initBoard(uint8_t board[SIZE][SIZE]) {
     score = 0;
 }
 
-void setBufferedInput(bool enable) {
+void setBufferedInput(bool enable)
+{
     static bool enabled = true;
     static struct termios old;
     struct termios new;
@@ -443,7 +456,8 @@ void setBufferedInput(bool enable) {
 // @todo 함수 설명 필요
 // @todo 함수 분할 필요
 // @todo 주석 한글화 필요
-int test() {
+int test()
+{
     uint8_t array[SIZE];
     uint8_t board[SIZE][SIZE];
     // these are exponents with base 2 (1=2 2=4 3=8)
@@ -618,7 +632,8 @@ void KeyInputProcess(uint8_t board[][SIZE])
  * @param int $argv             실행 파라미터 값들의 배열
  * @return EXIT_SUCCESS         정상적으로 종료되었을 경우 리턴
  */
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     uint8_t board[SIZE][SIZE];
 
     if (getExecuteMode(argc, argv) == EXECUTE_TEST_MODE) { return test(); }
