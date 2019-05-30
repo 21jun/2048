@@ -400,6 +400,10 @@ void initBoard(unsigned int board[SIZE][SIZE])
     score = 0;
 }
 
+/**
+ * @author                      조유신 (cho8wola@sju.ac.kr)
+ * @brief                       버퍼 인풋을 설정하는 함수
+ */
 void setBufferedInput(bool enable)
 {
     static bool enabled = true;
