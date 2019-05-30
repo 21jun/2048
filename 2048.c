@@ -381,7 +381,11 @@ void addRandom(unsigned int board[SIZE][SIZE])
     }
 }
 
-// @todo 함수 설명 필요
+
+/**
+ * @author        조유신 (cho8wola@sju.ac.kr)
+ * @brief         게임보드를 초기화하는 함수, 2차원 배열을 0으로 초기화한 후 난수 2개를 입력
+ */
 void initBoard(unsigned int board[SIZE][SIZE])
 {
     unsigned int x, y;
@@ -421,14 +425,17 @@ void setBufferedInput(bool enable)
     }
 }
 
-// @todo 함수 설명 필요
-// @todo 함수 분할 필요
-// @todo 주석 한글화 필요
+
+/**
+ * @author                      조유신 (cho8wola@sju.ac.kr)
+ * @brief                       게임을 테스트하는 함수, 테스트 케이스를 통해 임의의 키보드 입력 이벤트로 검사
+ * @return int | boolean
+ */
 int test()
 {
     unsigned int array[SIZE];
     unsigned int board[SIZE][SIZE];
-    // these are exponents with base 2 (1=2 2=4 3=8)
+    // 2의 제곱으로 변환 (1=2 2=4 3=8)
     unsigned int data[] = {
             0, 0, 0, 1, 1, 0, 0, 0,
             0, 0, 1, 1, 2, 0, 0, 0,
