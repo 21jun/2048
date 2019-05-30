@@ -70,14 +70,14 @@ void getColor(uint8_t value, char *color, size_t length) {
  * @author                      박소연 (pparksso0308@gmail.com)
  * @brief                       화면에 블록의 값을 출력한다.
  * @param uint8_t board         화면에 출력할 게임판 정보
- * @param unit8_t x_index       게임판의 x_index 값
- * @param unit8_t y_index       게임판의 y_index 값
+ * @param unit8_t x_index       게임판의 x index 값
+ * @param unit8_t y_index       게임판의 y index 값
  */
 void printValue(uint8_t board[SIZE][SIZE], uint8_t x_index, uint8_t y_index )
 {
-    if (board[x][y] != 0) {
+    if (board[x_index][y_index] != 0) {
         char s[8];
-        snprintf(s, 8, "%u", (uint32_t) 1 << board[x][y]);
+        snprintf(s, 8, "%u", (uint32_t) 1 << board[x_index][y_index]);
 
         uint8_t t = 7 - strlen(s);
         printf("%*s%s%*s", t - t / 2, "", s, t / 2, "");
