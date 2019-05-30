@@ -78,7 +78,7 @@ void printValue(unsigned int board[SIZE][SIZE], unsigned int x_index, unsigned i
 {
     if (board[x_index][y_index] != 0) {
         char s[8];
-        snprintf(s, 8, "%u", (unsigned int) 1 << board[x_index][y_index]);
+        snprintf(s, 8, "%u", 1 << board[x_index][y_index]);
 
         unsigned int t = 7 - strlen(s);
         printf("%*s%s%*s", t - t / 2, "", s, t / 2, "");
@@ -196,9 +196,6 @@ bool slideArray(unsigned int board[SIZE][SIZE], unsigned int index)
                     score += (unsigned int) 1 << board[index][t];
                     // set stop to avoid double merge
                     stop = t + 1;
-                }
-                else {
-                    
                 }
                 board[index][x] = 0;
                 success = true;
