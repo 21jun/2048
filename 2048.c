@@ -19,8 +19,8 @@
 #include <signal.h>
 
 #define SIZE 4
-uint32_t score = 0;
-uint8_t scheme = 0;
+unsigned int score = 0;
+unsigned int scheme = 0;
 
 /**
  * @brief 실행 인자값에 따른 실행모드 상수입니다
@@ -35,23 +35,23 @@ uint8_t scheme = 0;
 /**
  * @author                          박소연 (pparksso0308@gmail.com)
  * @brief                           화면에 출력될 블록들의 색깔 스키마를 설정한다.
- * @param uint8_t value             블록들에 저장되어 있는 값
+ * @param unsigned int value        블록들에 저장되어 있는 값
  * @param char * color              블록들의 색깔을 저장할 변수
  * @param size_t length             color 변수의 크기 설정
 */
-void getColor(uint8_t value, char *color, size_t length)
+void getColor(unsigned int value, char *color, size_t length)
 {
 
-    uint8_t original[] = {8, 255, 1, 255, 2, 255, 3, 255, 4, 255, 5, 255, 6, 255, 7,
+    unsigned int original[] = {8, 255, 1, 255, 2, 255, 3, 255, 4, 255, 5, 255, 6, 255, 7,
                           255, 9, 0, 10, 0, 11, 0, 12, 0, 13, 0, 14, 0, 255, 0, 255, 0};
-    uint8_t blackwhite[] = {232, 255, 234, 255, 236, 255, 238, 255, 240, 255, 242, 255, 244, 255,
+    unsigned int blackwhite[] = {232, 255, 234, 255, 236, 255, 238, 255, 240, 255, 242, 255, 244, 255,
                             246, 0, 248, 0, 249, 0, 250, 0, 251, 0, 252, 0, 253, 0, 254, 0, 255, 0};
-    uint8_t bluered[] = {235, 255, 63, 255, 57, 255, 93, 255, 129, 255, 165, 255, 201, 255, 200, 255,
+    unsigned int bluered[] = {235, 255, 63, 255, 57, 255, 93, 255, 129, 255, 165, 255, 201, 255, 200, 255,
                         199, 255, 198, 255, 197, 255, 196, 255, 196, 255, 196, 255, 196, 255, 196, 255};
 
-    uint8_t *schemes[] = {original, blackwhite, bluered};
-    uint8_t *background = schemes[scheme] + 0;
-    uint8_t *foreground = schemes[scheme] + 1;
+    unsigned int *schemes[] = {original, blackwhite, bluered};
+    unsigned int *background = schemes[scheme] + 0;
+    unsigned int *foreground = schemes[scheme] + 1;
 
     if (value > 0)  {
         while (value--) {
@@ -70,17 +70,17 @@ void getColor(uint8_t value, char *color, size_t length)
 /**
  * @author                      박소연 (pparksso0308@gmail.com)
  * @brief                       화면에 블록의 값을 출력한다.
- * @param uint8_t board         화면에 출력할 게임판 정보
+ * @param unsigned int board    화면에 출력할 게임판 정보
  * @param unit8_t x_index       게임판의 x index 값
  * @param unit8_t y_index       게임판의 y index 값
  */
-void printValue(uint8_t board[SIZE][SIZE], uint8_t x_index, uint8_t y_index )
+void printValue(unsigned int board[SIZE][SIZE], unsigned int x_index, unsigned int y_index )
 {
     if (board[x_index][y_index] != 0) {
         char s[8];
-        snprintf(s, 8, "%u", (uint32_t) 1 << board[x_index][y_index]);
+        snprintf(s, 8, "%u", (unsigned int) 1 << board[x_index][y_index]);
 
-        uint8_t t = 7 - strlen(s);
+        unsigned int t = 7 - strlen(s);
         printf("%*s%s%*s", t - t / 2, "", s, t / 2, "");
     } else {
         printf("   ·   ");
@@ -90,12 +90,12 @@ void printValue(uint8_t board[SIZE][SIZE], uint8_t x_index, uint8_t y_index )
 /**
  * @author                      박소연 (pparksso0308@gmail.com)
  * @brief                       화면에 게임판을 출력한다.
- * @param uint8_t board         화면에 출력할 게임판 정보
+ * @param unsigned int board    화면에 출력할 게임판 정보
  */
-void drawBoard(uint8_t board[SIZE][SIZE])
+void drawBoard(unsigned int board[SIZE][SIZE])
 {
-    uint8_t x; 
-    uint8_t y;
+    unsigned int x; 
+    unsigned int y;
     char color[40];
     char reset[] = "\033[m";
 
@@ -141,9 +141,9 @@ void drawBoard(uint8_t board[SIZE][SIZE])
  *                                  블럭이 stop 에 의해 더이상 검사를 할 필요가 없는 경우 (t),
  *                                  블럭이 이동할 수 있는 위치가 없는 경우 원래 위치 반환(제자리) (x)
  */
-uint8_t findTarget(uint8_t array[SIZE], uint8_t x, uint8_t stop)
+unsigned int findTarget(unsigned int array[SIZE], unsigned int x, unsigned int stop)
 {
-    uint8_t t;
+    unsigned int t;
     // if the position is already on the first, don't evaluate
     if (x == 0) {
         return x;
@@ -175,10 +175,10 @@ uint8_t findTarget(uint8_t array[SIZE], uint8_t x, uint8_t stop)
  * @return bool success             게임판의 한 행의 블럭들이 이동되었는지 여부
  *                                  하나의 블럭이라도 이동했다면 true 반환한다.             
  */
-bool slideArray(uint8_t board[SIZE][SIZE], uint8_t index)
+bool slideArray(unsigned int board[SIZE][SIZE], unsigned int index)
 {
     bool success = false;
-    uint8_t x, t, stop = 0;
+    unsigned int x, t, stop = 0;
 
     for (x = 0; x < SIZE; x++) {
         if (board[index][x] != 0) {
@@ -193,7 +193,7 @@ bool slideArray(uint8_t board[SIZE][SIZE], uint8_t index)
                     // merge (increase power of two)
                     board[index][t]++;
                     // increase score
-                    score += (uint32_t) 1 << board[index][t];
+                    score += (unsigned int) 1 << board[index][t];
                     // set stop to avoid double merge
                     stop = t + 1;
                 }
@@ -214,10 +214,10 @@ bool slideArray(uint8_t board[SIZE][SIZE], uint8_t index)
  *                                  실제 구현은 4x4 배열의 원소들을 옮겨서 회전과 같은 효과를 냈다.
  * @param unsigned int board        게임판        
  */
-void rotateBoard(uint8_t board[SIZE][SIZE])
+void rotateBoard(unsigned int board[SIZE][SIZE])
 {
-    uint8_t i, j, n = SIZE;
-    uint8_t tmp;
+    unsigned int i, j, n = SIZE;
+    unsigned int tmp;
     for (i = 0; i < n / 2; i++) {
         for (j = i; j < n - i - 1; j++) {
             tmp = board[i][j];
@@ -237,10 +237,10 @@ void rotateBoard(uint8_t board[SIZE][SIZE])
  * @param unsigned int board        게임판       
  * @return bool success             작업의 성공 여부
  */
-bool moveUp(uint8_t board[SIZE][SIZE])
+bool moveUp(unsigned int board[SIZE][SIZE])
 {
     bool success = false;
-    uint8_t x;
+    unsigned int x;
     for (x = 0; x < SIZE; x++) {
         success |= slideArray(board, x);
     }
@@ -255,7 +255,7 @@ bool moveUp(uint8_t board[SIZE][SIZE])
  * @param unsigned int board        게임판       
  * @return bool success             작업의 성공 여부
  */
-bool moveLeft(uint8_t board[SIZE][SIZE])
+bool moveLeft(unsigned int board[SIZE][SIZE])
 {
     bool success;
     rotateBoard(board);
@@ -274,7 +274,7 @@ bool moveLeft(uint8_t board[SIZE][SIZE])
  * @param unsigned int board        게임판       
  * @return bool success             작업의 성공 여부
  */
-bool moveDown(uint8_t board[SIZE][SIZE])
+bool moveDown(unsigned int board[SIZE][SIZE])
 {
     bool success;
     rotateBoard(board);
@@ -293,7 +293,7 @@ bool moveDown(uint8_t board[SIZE][SIZE])
  * @param unsigned int board        게임판       
  * @return bool success             작업의 성공 여부
  */
-bool moveRight(uint8_t board[SIZE][SIZE])
+bool moveRight(unsigned int board[SIZE][SIZE])
 {
     bool success;
     rotateBoard(board);
@@ -304,10 +304,10 @@ bool moveRight(uint8_t board[SIZE][SIZE])
     return success;
 }
 
-bool findPairDown(uint8_t board[SIZE][SIZE])
+bool findPairDown(unsigned int board[SIZE][SIZE])
 {
     bool success = false;
-    uint8_t x, y;
+    unsigned int x, y;
     for (x = 0; x < SIZE; x++) {
         for (y = 0; y < SIZE - 1; y++) {
             if (board[x][y] == board[x][y + 1]) return true;
@@ -316,10 +316,10 @@ bool findPairDown(uint8_t board[SIZE][SIZE])
     return success;
 }
 
-uint8_t countEmpty(uint8_t board[SIZE][SIZE])
+unsigned int countEmpty(unsigned int board[SIZE][SIZE])
 {
-    uint8_t x, y;
-    uint8_t count = 0;
+    unsigned int x, y;
+    unsigned int count = 0;
     for (x = 0; x < SIZE; x++) {
         for (y = 0; y < SIZE; y++) {
             if (board[x][y] == 0) {
@@ -330,7 +330,7 @@ uint8_t countEmpty(uint8_t board[SIZE][SIZE])
     return count;
 }
 
-bool gameEnded(uint8_t board[SIZE][SIZE])
+bool gameEnded(unsigned int board[SIZE][SIZE])
 {
     bool ended = true;
     if (countEmpty(board) > 0) return false;
@@ -345,17 +345,17 @@ bool gameEnded(uint8_t board[SIZE][SIZE])
 /**
  * @author                      박소연 (pparksso0308@gmail.com)
  * @brief                       게임 시작시 모든 블록의 값을 각각 랜덤하게 설정
- * @param uint8_t board         화면에 출력할 게임판 정보
+ * @param unsigned int board    화면에 출력할 게임판 정보
  */
-void addRandom(uint8_t board[SIZE][SIZE])
+void addRandom(unsigned int board[SIZE][SIZE])
 {
     static bool initialized = false;
-    uint8_t x;
-    uint8_t y;
-    uint8_t r;
-    uint8_t len = 0;
-    uint8_t n;
-    uint8_t list[SIZE * SIZE][2];
+    unsigned int x;
+    unsigned int y;
+    unsigned int r;
+    unsigned int len = 0;
+    unsigned int n;
+    unsigned int list[SIZE * SIZE][2];
 
     if (!initialized) {
         srand(time(NULL));
@@ -382,9 +382,9 @@ void addRandom(uint8_t board[SIZE][SIZE])
 }
 
 // @todo 함수 설명 필요
-void initBoard(uint8_t board[SIZE][SIZE])
+void initBoard(unsigned int board[SIZE][SIZE])
 {
-    uint8_t x, y;
+    unsigned int x, y;
     for (x = 0; x < SIZE; x++) {
         for (y = 0; y < SIZE; y++) {
             board[x][y] = 0;
@@ -426,10 +426,10 @@ void setBufferedInput(bool enable)
 // @todo 주석 한글화 필요
 int test()
 {
-    uint8_t array[SIZE];
-    uint8_t board[SIZE][SIZE];
+    unsigned int array[SIZE];
+    unsigned int board[SIZE][SIZE];
     // these are exponents with base 2 (1=2 2=4 3=8)
-    uint8_t data[] = {
+    unsigned int data[] = {
             0, 0, 0, 1, 1, 0, 0, 0,
             0, 0, 1, 1, 2, 0, 0, 0,
             0, 1, 0, 1, 2, 0, 0, 0,
@@ -444,9 +444,9 @@ int test()
             3, 0, 1, 1, 3, 2, 0, 0,
             2, 0, 1, 1, 2, 2, 0, 0
     };
-    uint8_t *in, *out;
-    uint8_t t, tests;
-    uint8_t i;
+    unsigned int *in, *out;
+    unsigned int t, tests;
+    unsigned int i;
     bool success = true;
 
     tests = (sizeof(data) / sizeof(data[0])) / (2 * SIZE);
@@ -529,7 +529,7 @@ int getExecuteMode(int argc, char *argv[])
  * @brief                       키 입력 이벤트를 처리하는 함수
  * @param unit8_t board         게임의 현재 상황을 나타내는 게임보드
  */
-void KeyInputProcess(uint8_t board[][SIZE])
+void KeyInputProcess(unsigned int board[][SIZE])
 {
     char c;
     bool success;
@@ -603,7 +603,7 @@ void KeyInputProcess(uint8_t board[][SIZE])
  */
 int main(int argc, char *argv[])
 {
-    uint8_t board[SIZE][SIZE];
+    unsigned int board[SIZE][SIZE];
 
     if (getExecuteMode(argc, argv) == EXECUTE_TEST_MODE) { return test(); }
 
